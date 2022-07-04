@@ -9,15 +9,9 @@ import Layout from "./components/layout/layout";
 import Home from "./pages/home/home";
 // import Login from "./components/login/Login";
 import SignIn from "./components/login/Signin";
+import CustomerList from "./components/customers/customerlist";
+import NewNonCorporate from "./components/nonCorporateLoad/NewNonCorporate";
 const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#fefefe",
-    },
-    secondary: {
-      main: "#e3dcdd",
-    },
-  },
   typography: {
     fontSize: 13,
   },
@@ -42,6 +36,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/dashboard" element={<Home />} />
+            <Route path="/add_customer" element={<CustomerList />} />
+            <Route path="/non_corpoarate_load" element={<NewNonCorporate />} />
             <Route path="/login" element={<SignIn />} />
             <Route path="/register" element={<Register />} />
           </Routes>
