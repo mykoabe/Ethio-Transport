@@ -1,6 +1,6 @@
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
-import Register from "./components/register/Register";
+import Register from "./components/register/register";
 
 // routing
 import { Route, Routes } from "react-router-dom";
