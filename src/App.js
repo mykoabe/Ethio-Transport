@@ -10,7 +10,9 @@ import Home from "./pages/home/home";
 // import Login from "./components/login/Login";
 import SignIn from "./components/login/Signin";
 import CustomerList from "./components/customers/customerlist";
-import NewNonCorporate from "./components/nonCorporateLoad/NewNonCorporate";
+import NewNonCorporate from "./components/loads/nonCorporateLoad/NewNonCorporate";
+import NewEcxLoad from "./components/loads/ecxLoads/NewEcxLoads";
+
 const theme = createTheme({
   typography: {
     fontSize: 13,
@@ -38,6 +40,7 @@ function App() {
             <Route path="/dashboard" element={<Home />} />
             <Route path="/add_customer" element={<CustomerList />} />
             <Route path="/non_corpoarate_load" element={<NewNonCorporate />} />
+            <Route path="/ecx_load" element={<NewEcxLoad />} />
             <Route path="/login" element={<SignIn />} />
             <Route path="/register" element={<Register />} />
           </Routes>

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import CorporateTabs from "./CorporateTab";
-import Title from "../charts/Title";
+import Title from "../../charts/Title";
 // import Toolbar from "@mui/material/Toolbar";
 
 import Container from "@mui/material/Container";

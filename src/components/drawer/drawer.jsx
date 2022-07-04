@@ -81,14 +81,6 @@ const PermanentDrawerLeft = () => {
 
   const menuItems = [
     {
-      text: "Dashboard",
-      icon: <HomeIcon />,
-      path: "/",
-      submenu: [],
-      isopen: "",
-      open_fun: "",
-    },
-    {
       text: "Manage Users",
       icon: <PivotTableChartIcon />,
       path: "/manage_users",
@@ -122,7 +114,7 @@ const PermanentDrawerLeft = () => {
         },
         {
           text: "New ECX Load",
-          path: "/add_driver",
+          path: "/ecx_load",
         },
         {
           text: "New Container order",
@@ -307,10 +299,24 @@ const PermanentDrawerLeft = () => {
         <TopList />
 
         <Divider />
+
         <List
           sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
           component="nav"
         >
+          <ListItemButton>
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <Link
+              to={"/dashboard"}
+              style={{
+                textDecoration: "None",
+              }}
+            >
+              <ListItemText primary={"Dashboard"} />
+            </Link>
+          </ListItemButton>
           {menuItems.map((item) => (
             <>
               <ListItemButton onClick={item.open_fun}>
@@ -322,7 +328,12 @@ const PermanentDrawerLeft = () => {
                 {item.submenu.map((sub) => (
                   <List component="div" disablePadding key={sub.text}>
                     <ListItemButton sx={{ pl: 4 }}>
-                      <Link to={sub.path}>
+                      <Link
+                        to={sub.path}
+                        style={{
+                          textDecoration: "none",
+                        }}
+                      >
                         {" "}
                         <ListItemText primary={sub.text} />
                       </Link>
