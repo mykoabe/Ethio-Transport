@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -7,45 +8,15 @@ import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { auth, registerWithEmailAndPassword } from "../../firebase-config";
-import trans4 from "../../assets/trans4.png";
-import PropTypes from "prop-types";
 
 import { useNavigate } from "react-router-dom";
+import { auth, signInWithEmailAndPassword } from "../../firebase-config";
 import { useAuthState } from "react-firebase-hooks/auth";
-
-function Item(props) {
-  const { sx, ...other } = props;
-  return (
-    <Box
-      sx={{
-        p: 0.6,
-        m: 0.6,
-        borderRadius: 2,
-        fontSize: "0.875rem",
-        fontWeight: "700",
-        ...sx,
-      }}
-      {...other}
-    />
-  );
-}
-
-Item.propTypes = {
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: PropTypes.oneOfType([
-    PropTypes.arrayOf(
-      PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])
-    ),
-    PropTypes.func,
-    PropTypes.object,
-  ]),
-};
+import "./login.css";
 
 function Copyright(props) {
   return (
@@ -56,8 +27,8 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://www.techlinkethiopia.com/">
-        TechLink Ethiopia
+      <Link color="inherit" href="https://mui.com/">
+        Your Website
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -67,19 +38,16 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function Register() {
+export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
-  const register = () => {
-    if (!name) alert("Please enter name");
-    registerWithEmailAndPassword(name, email, password);
-  };
   useEffect(() => {
-    if (loading) return;
-    if (user) navigate("/");
+    if (loading) {
+      // maybe trigger a loading screen
+      return;
+    }
   }, [user, loading, navigate]);
 
   const handleSubmit = (event) => {
@@ -100,46 +68,21 @@ export default function Register() {
             marginTop: 8,
             display: "flex",
             flexDirection: "column",
-            alignItems: "flex-start",
+            alignItems: "center",
           }}
         >
-          <Item>
-            <img
-              style={{
-                maxWidth: "60%",
-                height: "auto",
-                padding: 0,
-                margin: 0,
-              }}
-              src={trans4}
-              alt="logo"
-            />
-          </Item>
-          <Typography component="h1" variant="h5" sx={{ ml: 3 }}>
-            Hello! Lets get started
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
           </Typography>
-          <Typography component="h5" sx={{ ml: 3, mb: 2 }}>
-            Sign up to continue
-          </Typography>
-
           <Box
             component="form"
             onSubmit={handleSubmit}
             noValidate
             sx={{ mt: 1 }}
           >
-            <TextField
-              margin="normal"
-              onChange={(e) => setName(e.target.value)}
-              value={name}
-              required
-              fullWidth
-              id="name"
-              label="Admin Name"
-              name="name"
-              autoComplete="name"
-              autoFocus
-            />
             <TextField
               margin="normal"
               onChange={(e) => setEmail(e.target.value)}
@@ -170,7 +113,7 @@ export default function Register() {
             />
             <Button
               type="submit"
-              onClick={register}
+              onClick={() => signInWithEmailAndPassword(email, password)}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
@@ -184,14 +127,13 @@ export default function Register() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="/login" variant="body2">
-                  {"Already have an account? Sign in"}
+                <Link href="/register" variant="body2">
+                  {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
