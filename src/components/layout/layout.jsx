@@ -12,6 +12,10 @@ const useStyles = makeStyles({
     background: "#f9f9f9",
     marginLeft: "20%",
   },
+  login: {
+    background: "#f9f9f9",
+    marginLeft: "20%",
+  },
 });
 
 const Layout = ({ children }) => {
@@ -41,8 +45,14 @@ const Layout = ({ children }) => {
     <>
       {/* the drawer part */}
 
-      { user && <PermanentDrawerLeft />}
-      <main className={classes.page}>{children}</main>
+      {user && (
+        <>
+          <PermanentDrawerLeft />
+          <main className={classes.page}>{children}</main>
+        </>
+      )}
+
+      {!user && <register className={classes.login}>{children}</register>}
     </>
   );
 };

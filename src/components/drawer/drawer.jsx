@@ -273,6 +273,19 @@ const PermanentDrawerLeft = () => {
         alignContent: "flex-start",
       }}
     >
+      <Box
+        component="register"
+        sx={{
+          width: "100%",
+          flexGrow: 1,
+          bgcolor: "background.default",
+          p: 2,
+          ml: 20,
+        }}
+      >
+        
+      </Box>
+
       <CssBaseline />
       <PrimarySearchAppBar />
       <Drawer
