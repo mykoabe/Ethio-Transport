@@ -48,7 +48,6 @@ export default function SignIn() {
       // maybe trigger a loading screen
       return;
     }
-    if (user) navigate("/dashboard");
   }, [user, loading, navigate]);
 
   const handleSubmit = (event) => {

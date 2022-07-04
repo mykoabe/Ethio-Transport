@@ -22,7 +22,7 @@ const Layout = ({ children }) => {
 
   useEffect(() => {
     if (loading) return;
-    if (!user) return navigate("/");
+    if (!user) return navigate("/register");
     const fetchUserName = async () => {
       try {
         const q = query(collection(db, "users"), where("uid", "==", user?.uid));
@@ -41,7 +41,7 @@ const Layout = ({ children }) => {
     <>
       {/* the drawer part */}
 
-      <PermanentDrawerLeft />
+      { user && <PermanentDrawerLeft />}
       <main className={classes.page}>{children}</main>
     </>
   );
