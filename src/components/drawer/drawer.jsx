@@ -6,6 +6,8 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
+import Avatar from "@mui/material/Avatar";
+import { deepOrange } from "@mui/material/colors";
 
 // import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -25,7 +27,7 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 
 import HomeIcon from "@mui/icons-material/Home";
-import { Collapse } from "@mui/material";
+import { Collapse, Stack } from "@mui/material";
 import TopList from "./top-list";
 import { Link } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -78,7 +80,6 @@ const PermanentDrawerLeft = () => {
   const handleAllData = () => {
     setOpen6(!open6);
   };
-
   const menuItems = [
     {
       text: "Manage Users",
@@ -114,23 +115,23 @@ const PermanentDrawerLeft = () => {
         },
         {
           text: "New ECX Load",
-          path: "/ecx_load",
+          path: "/new_ecx",
         },
         {
           text: "New Container order",
-          path: "/add_facilitator",
+          path: "/container_order",
         },
         {
           text: "Non corporate load list",
-          path: "/add_facilitator",
+          path: "/corporate_load",
         },
         {
           text: "ECX load list",
-          path: "/add_facilitator",
+          path: "/ecx_load_list",
         },
         {
           text: "Container order list",
-          path: "/add_facilitator",
+          path: "/container_order_list",
         },
       ],
     },
@@ -142,16 +143,20 @@ const PermanentDrawerLeft = () => {
       is_open: open2,
       submenu: [
         {
-          text: "Add Customer",
-          path: "/add_customer",
+          text: "Facilitator Waller",
+          path: "/facilitator_wallet",
         },
         {
-          text: "Add Driver",
-          path: "/add_driver",
+          text: "Transaction Orders",
+          path: "/transaction orders",
         },
         {
-          text: "Add Facilitator",
-          path: "/add_facilitator",
+          text: "Transaction Logs",
+          path: "/logs",
+        },
+        {
+          text: "Admin Commissions",
+          path: "/commissions",
         },
       ],
     },
@@ -163,16 +168,16 @@ const PermanentDrawerLeft = () => {
       is_open: open3,
       submenu: [
         {
-          text: "Add Customer",
-          path: "/add_customer",
+          text: "Customer data",
+          path: "/customer",
         },
         {
-          text: "Add Driver",
-          path: "/add_driver",
+          text: "Driver Data",
+          path: "/driver",
         },
         {
-          text: "Add Facilitator",
-          path: "/add_facilitator",
+          text: "Facilitator Data",
+          path: "/facilitator",
         },
       ],
     },
@@ -184,16 +189,12 @@ const PermanentDrawerLeft = () => {
       is_open: open4,
       submenu: [
         {
-          text: "Add Customer",
-          path: "/add_customer",
+          text: "Add System User",
+          path: "/system_user",
         },
         {
-          text: "Add Driver",
-          path: "/add_driver",
-        },
-        {
-          text: "Add Facilitator",
-          path: "/add_facilitator",
+          text: "Update System User",
+          path: "/update_system",
         },
       ],
     },
@@ -205,16 +206,9 @@ const PermanentDrawerLeft = () => {
       is_open: open5,
       submenu: [
         {
-          text: "Add Customer",
-          path: "/add_customer",
-        },
-        {
-          text: "Add Driver",
-          path: "/add_driver",
-        },
-        {
-          text: "Add Facilitator",
-          path: "/add_facilitator",
+          text: `Customer Comments`,
+          path: "/comments",
+          numbers: "7",
         },
       ],
     },
@@ -226,16 +220,8 @@ const PermanentDrawerLeft = () => {
       is_open: open6,
       submenu: [
         {
-          text: "Add Customer",
-          path: "/add_customer",
-        },
-        {
-          text: "Add Driver",
-          path: "/add_driver",
-        },
-        {
-          text: "Add Facilitator",
-          path: "/add_facilitator",
+          text: "Manage Data Export",
+          path: "/export",
         },
       ],
     },
@@ -247,20 +233,13 @@ const PermanentDrawerLeft = () => {
       is_open: "",
       submenu: [
         {
-          text: ". Add Customer",
-          path: "/add_customer",
-        },
-        {
-          text: "Add Driver",
-          path: "/add_driver",
-        },
-        {
-          text: "Add Facilitator",
-          path: "/add_facilitator",
+          text: "Customer Stastics",
+          path: "/customer_stastics",
         },
       ],
     },
   ];
+
   return (
     <Box
       sx={{
@@ -335,7 +314,25 @@ const PermanentDrawerLeft = () => {
                         }}
                       >
                         {" "}
-                        <ListItemText primary={sub.text} />
+                        <Stack direction="row" spacing={2}>
+                          <ListItemText primary={sub.text} />
+                          {sub.numbers ? (
+                            <Avatar
+                              sx={{
+                                bgcolor: deepOrange[500],
+                                height: 18,
+                                width: 18,
+                                mt: 2
+                              }}
+                              variant="square"
+                              sizes="small"
+                            >
+                              {sub.numbers}
+                            </Avatar>
+                          ) : (
+                            <p></p>
+                          )}
+                        </Stack>
                       </Link>
                     </ListItemButton>
                   </List>

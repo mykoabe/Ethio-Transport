@@ -8,10 +8,17 @@ import { blue } from "@mui/material/colors";
 import Layout from "./components/layout/layout";
 import Home from "./pages/home/home";
 // import Login from "./components/login/Login";
-import SignIn from "./components/login/Signin";
-import CustomerList from "./components/customers/customerlist";
+// import SignIn from "./components/login/Signin";
+import CustomerList from "./components/users/customers/customerlist";
 import NewNonCorporate from "./components/loads/nonCorporateLoad/NewNonCorporate";
 import NewEcxLoad from "./components/loads/ecxLoads/NewEcxLoads";
+import CustomerDetail from "./components/users/customers/customerDetail";
+import DriverList from "./components/users/drivers/driverList";
+import DriverDetail from "./components/users/drivers/driverDetail";
+import FacilitatorList from "./components/users/facilitators/FacilitatorList";
+import FacilitatorDetail from "./components/users/facilitators/FacilitatorDetail";
+import NewCustomer from "./components/users/customers/NewCustomer";
+import Login from "./components/login/Login";
 
 const theme = createTheme({
   typography: {
@@ -39,9 +46,18 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/dashboard" element={<Home />} />
             <Route path="/add_customer" element={<CustomerList />} />
+            <Route path="/add_customer/:userId" element={<CustomerDetail />} />
+            <Route path="/newCustomer" element={<NewCustomer />} />
             <Route path="/non_corpoarate_load" element={<NewNonCorporate />} />
+            <Route path="/add_driver" element={<DriverList />} />
+            <Route path="/add_driver/:userId" element={<DriverDetail />} />
+            <Route path="/add_facilitator" element={<FacilitatorList />} />
+            <Route
+              path="/add_facilitator/:userId"
+              element={<FacilitatorDetail />}
+            />
             <Route path="/ecx_load" element={<NewEcxLoad />} />
-            <Route path="/login" element={<SignIn />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Routes>
         </Layout>

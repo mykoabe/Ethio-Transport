@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState, useEffect } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -23,8 +24,13 @@ import Stack from "@mui/material/Stack";
 import PersonIcon from "@mui/icons-material/Person";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 
-const drawerWidth = 240;
+// geting username
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router-dom";
+import { auth, db } from "../../firebase-config";
+import { query, collection, getDocs, where } from "firebase/firestore";
 
+const drawerWidth = 240;
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -67,6 +73,27 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const PrimarySearchAppBar = () => {
+  const [user, loading] = useAuthState(auth);
+  const [name, setName] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (loading) return;
+    if (!user) return navigate("/register");
+    const fetchUserName = async () => {
+      try {
+        const q = query(collection(db, "users"), where("uid", "==", user?.uid));
+        const doc = await getDocs(q);
+        const data = doc.docs[0].data();
+        setName(data.name);
+      } catch (error) {
+        console.log(error);
+        alert("An error has occured while fetching user data");
+      }
+    };
+    fetchUserName();
+  }, [user, navigate, loading]);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -200,7 +227,7 @@ const PrimarySearchAppBar = () => {
                   component="div"
                   sx={{ display: { xs: "none", sm: "block" } }}
                 >
-                  Admin
+                  {name}
                 </Typography>
                 {anchorEl ? <ExpandLess /> : <ExpandMore />}
               </Stack>

@@ -10,7 +10,10 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { auth, registerWithEmailAndPassword } from "../../firebase-config";
+import {
+  auth,
+  logInWithEmailAndPassword,
+} from "../../firebase-config";
 import trans4 from "../../assets/trans4.png";
 import PropTypes from "prop-types";
 
@@ -67,17 +70,18 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function Register() {
+export default function Login() {
+  const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
-  
-  const register = () => {
-    if (!name) alert("Please enter name");
-    registerWithEmailAndPassword(name, email, password);
+
+  const login = () => {
+    if (!email) setError(true);
+    logInWithEmailAndPassword(email, password);
   };
+
   useEffect(() => {
     if (loading) return;
     if (user) navigate("/");
@@ -131,18 +135,6 @@ export default function Register() {
           >
             <TextField
               margin="normal"
-              onChange={(e) => setName(e.target.value)}
-              value={name}
-              required
-              fullWidth
-              id="name"
-              label="Admin Name"
-              name="name"
-              autoComplete="name"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
               onChange={(e) => setEmail(e.target.value)}
               value={email}
               required
@@ -171,7 +163,7 @@ export default function Register() {
             />
             <Button
               type="submit"
-              onClick={register}
+              onClick={login}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
@@ -190,6 +182,9 @@ export default function Register() {
                 </Link>
               </Grid>
             </Grid>
+            {error && (
+              <Typography color="red">Forgot password or email</Typography>
+            )}
           </Box>
         </Box>
 

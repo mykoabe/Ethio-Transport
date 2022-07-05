@@ -39,6 +39,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
+  const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, loading] = useAuthState(auth);
@@ -132,6 +133,7 @@ export default function SignIn() {
                 </Link>
               </Grid>
             </Grid>
+           
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
