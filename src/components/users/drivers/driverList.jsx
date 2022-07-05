@@ -22,7 +22,15 @@ const rows = [
     adress: "Addis Ababa",
   },
   {
-    id: 1,
+    id: 2,
+    name: "Snow",
+    email: "mekuanint.abebe@gmail.com",
+    phone: "0912121212",
+    license: "license",
+    adress: "Addis Ababa",
+  },
+  {
+    id: 3,
     name: "Snow",
     email: "mekuanint@gmail.com",
     phone: "0912121212",
@@ -30,7 +38,7 @@ const rows = [
     adress: "Addis Ababa",
   },
   {
-    id: 1,
+    id: 4,
     name: "Snow",
     email: "mekuanint@gmail.com",
     phone: "0912121212",
@@ -38,7 +46,7 @@ const rows = [
     adress: "Addis Ababa",
   },
   {
-    id: 1,
+    id: 5,
     name: "Snow",
     email: "mekuanint@gmail.com",
     phone: "0912121212",
@@ -46,15 +54,7 @@ const rows = [
     adress: "Addis Ababa",
   },
   {
-    id: 1,
-    name: "Snow",
-    email: "mekuanint@gmail.com",
-    phone: "0912121212",
-    license: "license",
-    adress: "Addis Ababa",
-  },
-  {
-    id: 1,
+    id: 6,
     name: "Snow",
     email: "mekuanint@gmail.com",
     phone: "0912121212",

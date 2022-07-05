@@ -22,7 +22,7 @@ const rows = [
     type: "Facilitator",
   },
   {
-    id: 1,
+    id: 2,
     name: "alemu",
     facilitor_photo: "mekuanint",
     phone: "0912121212",
@@ -30,7 +30,7 @@ const rows = [
     type: "Facilitator",
   },
   {
-    id: 1,
+    id: 3,
     name: "alemu",
     facilitor_photo: "mekuanint",
     phone: "0912121212",
@@ -38,7 +38,7 @@ const rows = [
     type: "Facilitator",
   },
   {
-    id: 1,
+    id: 4,
     name: "alemu",
     facilitor_photo: "mekuanint",
     phone: "0912121212",
@@ -46,7 +46,7 @@ const rows = [
     type: "Facilitator",
   },
   {
-    id: 1,
+    id: 5,
     name: "alemu",
     facilitor_photo: "mekuanint",
     phone: "0912121212",
@@ -54,7 +54,7 @@ const rows = [
     type: "Facilitator",
   },
   {
-    id: 1,
+    id: 6,
     name: "alemu",
     facilitor_photo: "mekuanint",
     phone: "0912121212",

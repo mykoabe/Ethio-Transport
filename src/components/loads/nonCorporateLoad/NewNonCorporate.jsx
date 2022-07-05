@@ -8,6 +8,9 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { Box } from "@mui/material";
+import { useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../../firebase-config";
 
 const columns = [
   { field: "id", headerName: "Post By", width: 70 },
@@ -30,114 +33,25 @@ const columns = [
   },
 ];
 
-const rows = [
-  {
-    id: 1,
-    name: "Snow",
-    phone: "0912121212",
-    from_to: "Addis Ababa/Bahirdar",
-    loading: false,
-    overview: "Nothing is perfect",
-  },
-  {
-    id: 1,
-    name: "Snow",
-    phone: "0912121212",
-    from_to: "Addis Ababa/Bahirdar",
-    loading: false,
-    overview: "Nothing is perfect",
-  },
-  {
-    id: 1,
-    name: "Snow",
-    phone: "0912121212",
-    from_to: "Addis Ababa/Bahirdar",
-    loading: false,
-    overview: "Nothing is perfect",
-  },
-  {
-    id: 1,
-    name: "Snow",
-    phone: "0912121212",
-    from_to: "Addis Ababa/Bahirdar",
-    loading: false,
-    overview: "Nothing is perfect",
-  },
-  {
-    id: 1,
-    name: "Snow",
-    phone: "0912121212",
-    from_to: "Addis Ababa/Bahirdar",
-    loading: false,
-    overview: "Nothing is perfect",
-  },
-  {
-    id: 1,
-    name: "Snow",
-    phone: "0912121212",
-    from_to: "Addis Ababa/Bahirdar",
-    loading: false,
-    overview: "Nothing is perfect",
-  },
-  {
-    id: 1,
-    name: "Snow",
-    phone: "0912121212",
-    from_to: "Addis Ababa/Bahirdar",
-    loading: false,
-    overview: "Nothing is perfect",
-  },
-  {
-    id: 1,
-    name: "Snow",
-    phone: "0912121212",
-    from_to: "Addis Ababa/Bahirdar",
-    loading: false,
-    overview: "Nothing is perfect",
-  },
-  {
-    id: 1,
-    name: "Snow",
-    phone: "0912121212",
-    from_to: "Addis Ababa/Bahirdar",
-    loading: false,
-    overview: "Nothing is perfect",
-  },
-  {
-    id: 1,
-    name: "Snow",
-    phone: "0912121212",
-    from_to: "Addis Ababa/Bahirdar",
-    loading: false,
-    overview: "Nothing is perfect",
-  },
-  {
-    id: 1,
-    name: "Snow",
-    phone: "0912121212",
-    from_to: "Addis Ababa/Bahirdar",
-    loading: false,
-    overview: "Nothing is perfect",
-  },
-  {
-    id: 1,
-    name: "Snow",
-    phone: "0912121212",
-    from_to: "Addis Ababa/Bahirdar",
-    loading: false,
-    overview: "Nothing is perfect",
-  },
-  {
-    id: 1,
-    name: "Snow",
-    phone: "0912121212",
-    from_to: "Addis Ababa/Bahirdar",
-    loading: false,
-    overview: "Nothing is perfect",
-  },
-];
-
 export default function NewNonCorporate() {
+  const [data, setData] = useState({});
+  useState(() => {
+    const fetchData = async () => {
+      let noncorporateList = [];
+      try {
+        const querySnaphot = await getDocs(collection(db, "noncorporate"));
+        querySnaphot.forEach((doc) => {
+          noncorporateList.push({ id: doc.id, ...doc.data() });
+          console.log(doc.id, "=>", doc.data());
+        });
+        setData(noncorporateList);
+        console.log(noncorporateList);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <>
       <Container maxWidth="lg" sx={{ mt: 1, mb: 1 }}>
@@ -185,7 +99,7 @@ export default function NewNonCorporate() {
         <Title>New Non-Corporate Order List</Title>
         <Box sx={{ width: "100%", height: 400 }}>
           <DataGrid
-            rows={rows}
+            rows={data}
             columns={columns}
             pageSize={5}
             rowsPerPageOptions={[5]}

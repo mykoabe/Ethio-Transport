@@ -227,7 +227,7 @@ const PrimarySearchAppBar = () => {
                   component="div"
                   sx={{ display: { xs: "none", sm: "block" } }}
                 >
-                  {name}
+                  {name ? name : "Admin"}
                 </Typography>
                 {anchorEl ? <ExpandLess /> : <ExpandMore />}
               </Stack>

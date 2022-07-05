@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -10,15 +10,13 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import {
-  auth,
-  logInWithEmailAndPassword,
-} from "../../firebase-config";
+import { auth } from "../../firebase-config";
 import trans4 from "../../assets/trans4.png";
 import PropTypes from "prop-types";
-
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { AuthContext } from "../../context/auth/authContext";
 
 function Item(props) {
   const { sx, ...other } = props;
@@ -77,9 +75,18 @@ export default function Login() {
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
 
+  const { dispatch } = useContext(AuthContext);
+
   const login = () => {
     if (!email) setError(true);
-    logInWithEmailAndPassword(email, password);
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        dispatch({ type: "LOGIN", payload: user });
+      })
+      .catch((err) => {
+        setError(err);
+      });
   };
 
   useEffect(() => {
@@ -124,7 +131,7 @@ export default function Login() {
             Hello! Lets get started
           </Typography>
           <Typography component="h5" sx={{ ml: 3, mb: 2 }}>
-            Sign up to continue
+            Sign in to continue
           </Typography>
 
           <Box
@@ -177,8 +184,8 @@ export default function Login() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="/login" variant="body2">
-                  {"Already have an account? Sign in"}
+                <Link href="/register" variant="body2">
+                  {"Not registered yet? Register here"}
                 </Link>
               </Grid>
             </Grid>

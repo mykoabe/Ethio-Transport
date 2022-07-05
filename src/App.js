@@ -19,6 +19,7 @@ import FacilitatorList from "./components/users/facilitators/FacilitatorList";
 import FacilitatorDetail from "./components/users/facilitators/FacilitatorDetail";
 import NewCustomer from "./components/users/customers/NewCustomer";
 import Login from "./components/login/Login";
+import { customerData } from "./components/users/customers/customerData";
 
 const theme = createTheme({
   typography: {
@@ -47,7 +48,10 @@ function App() {
             <Route path="/dashboard" element={<Home />} />
             <Route path="/add_customer" element={<CustomerList />} />
             <Route path="/add_customer/:userId" element={<CustomerDetail />} />
-            <Route path="/newCustomer" element={<NewCustomer />} />
+            <Route
+              path="/newCustomer"
+              element={<NewCustomer title={"nothing"} inputs={customerData} />}
+            />
             <Route path="/non_corpoarate_load" element={<NewNonCorporate />} />
             <Route path="/add_driver" element={<DriverList />} />
             <Route path="/add_driver/:userId" element={<DriverDetail />} />
@@ -56,7 +60,7 @@ function App() {
               path="/add_facilitator/:userId"
               element={<FacilitatorDetail />}
             />
-            <Route path="/ecx_load" element={<NewEcxLoad />} />
+            <Route path="/new_ecx" element={<NewEcxLoad />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Routes>

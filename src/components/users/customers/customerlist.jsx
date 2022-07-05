@@ -11,70 +11,41 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import BreadCrumbs from "../../../pages/home/breadCrumbs";
 import { Link } from "react-router-dom";
+import { collection, deleteDoc, getDocs, doc } from "firebase/firestore";
+import { db } from "../../../firebase-config";
 
-const rows = [
-  {
-    id: 1,
-    company: "Snow",
-    username: "mekuanint",
-    phone: "0912121212",
-    adress: "Addis Ababa",
-    type: "Facilitator",
-  },
-  {
-    id: 2,
-    company: "Snow",
-    username: "mekuanint",
-    phone: "0912121212",
-    adress: "Addis Ababa",
-    type: "Facilitator",
-  },
-  {
-    id: 3,
-    company: "Snow",
-    username: "mekuanint",
-    phone: "0912121212",
-    adress: "Addis Ababa",
-    type: "Facilitator",
-  },
-  {
-    id: 4,
-    company: "Snow",
-    username: "mekuanint",
-    phone: "0912121212",
-    adress: "Addis Ababa",
-    type: "Facilitator",
-  },
-  {
-    id: 5,
-    company: "Snow",
-    username: "mekuanint",
-    phone: "0912121212",
-    adress: "Addis Ababa",
-    type: "Facilitator",
-  },
-  {
-    id: 6,
-    company: "Snow",
-    username: "Abebe",
-    phone: "0912121212",
-    adress: "Addis Ababa",
-    type: "Facilitator",
-  },
-  {
-    id: 7,
-    company: "Snow",
-    username: "mekuanint",
-    phone: "0912121212",
-    adress: "Bahirdar",
-    type: "Customer",
-  },
-];
+// import { auth } from "../../../firebase-config";
 
 export default function CustomerList() {
-  const [data, setData] = useState(rows);
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+  const [data, setData] = useState([]);
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      let customerList = [];
+      try {
+        const querySnaphot = await getDocs(collection(db, "customers"));
+        querySnaphot.forEach((doc) => {
+          customerList.push({ id: doc.id, ...doc.data() });
+          console.log(doc.id, "=>", doc.data());
+        });
+
+        setData(customerList);
+        console.log(customerList);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  console.log(data);
+  const handleDelete = async (id) => {
+    try {
+      await deleteDoc(doc(db, "customers", id));
+      setData(data.filter((item) => item.id !== id));
+    } catch (error) {
+      console.log(error);
+    }
   };
   const columns = [
     { field: "id", headerName: "ID", width: 60 },
@@ -86,8 +57,8 @@ export default function CustomerList() {
       width: 150,
     },
     {
-      field: "adress",
-      headerName: "Adress",
+      field: "address",
+      headerName: "Address",
       width: 150,
     },
     {
@@ -131,7 +102,7 @@ export default function CustomerList() {
           fontWeight: "bold",
         }}
       >
-        Welcome back,{" "}
+        Welcome back,
       </Typography>
       <BreadCrumbs />
       <Grid container spacing={3}>
