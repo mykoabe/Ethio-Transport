@@ -11,62 +11,33 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import BreadCrumbs from "../../../pages/home/breadCrumbs";
 import { Link } from "react-router-dom";
-
-const rows = [
-  {
-    id: 1,
-    name: "alemu",
-    facilitor_photo: "mekuanint",
-    phone: "0912121212",
-    adress: "Addis Ababa",
-    type: "Facilitator",
-  },
-  {
-    id: 2,
-    name: "alemu",
-    facilitor_photo: "mekuanint",
-    phone: "0912121212",
-    adress: "Addis Ababa",
-    type: "Facilitator",
-  },
-  {
-    id: 3,
-    name: "alemu",
-    facilitor_photo: "mekuanint",
-    phone: "0912121212",
-    adress: "Addis Ababa",
-    type: "Facilitator",
-  },
-  {
-    id: 4,
-    name: "alemu",
-    facilitor_photo: "mekuanint",
-    phone: "0912121212",
-    adress: "Addis Ababa",
-    type: "Facilitator",
-  },
-  {
-    id: 5,
-    name: "alemu",
-    facilitor_photo: "mekuanint",
-    phone: "0912121212",
-    adress: "Addis Ababa",
-    type: "Facilitator",
-  },
-  {
-    id: 6,
-    name: "alemu",
-    facilitor_photo: "mekuanint",
-    phone: "0912121212",
-    adress: "Addis Ababa",
-    type: "Facilitator",
-  },
-];
+import { deleteDoc, getDocs, doc } from "firebase/firestore";
+import { collection } from "firebase/firestore";
+import { db } from "../../../firebase-config";
 
 export default function FacilitatorList() {
-  const [data, setData] = useState(rows);
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+  const [data, setData] = useState({});
+  React.useEffect(() => {
+    const fetchData = async () => {
+      let FacilitatorList = [];
+      try {
+        const querySnapshot = await getDocs(collection(db, "facilitators"));
+        querySnapshot.forEach((doc) => {
+          FacilitatorList.push({ id: doc.id, ...doc.data() });
+        });
+        setData(FacilitatorList);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      await deleteDoc(doc(db, "facilitators", id));
+      setData(data.filter((item) => item.id !== id));
+    } catch (error) {}
   };
   const columns = [
     { field: "id", headerName: "ID", width: 60 },

@@ -8,7 +8,7 @@ export default function FacilitatorDetail() {
       <TopBar
         button_title={"Create"}
         user_title={"Edit Facilitator"}
-        rout_title={"add_facilitator"}
+        rout_title={"newFacilitator"}
       />
       <AddressForm />
     </>

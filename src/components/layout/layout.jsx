@@ -29,7 +29,7 @@ const Layout = ({ children }) => {
       return navigate("/register");
     if (!user && location.pathname === "/login") return navigate("/login");
     if (!user) return navigate("login");
-  }, [user, loading, navigate]);
+  }, [user, loading, navigate, location.pathname]);
 
   return (
     <>
